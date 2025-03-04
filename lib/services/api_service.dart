@@ -25,16 +25,16 @@ class ApiService {
         compact: true,
       ),
       InterceptorsWrapper(
-        onRequest: (options, handler) {
+        onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
           debugPrint('Sending request to ${options.path}');
           options.headers['X-Demo'] = 'Interceptor-Test';
           return handler.next(options);
         },
-        onResponse: (response, handler) {
+        onResponse: (Response response, ResponseInterceptorHandler handler) {
           debugPrint('Response received: ${response.statusCode}');
           return handler.next(response);
         },
-        onError: (DioException error, handler) {
+        onError: (DioException error, ErrorInterceptorHandler handler) {
           debugPrint('Error occurred: ${error.message}');
           return handler.next(error);
         },
